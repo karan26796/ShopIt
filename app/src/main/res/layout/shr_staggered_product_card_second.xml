@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginEnd="@dimen/margin_small"
+    android:layout_marginStart="@dimen/margin_small"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardElevation="0dp"
+    app:cardPreventCornerOverlap="true"
+    app:contentPaddingTop="@dimen/shr_staggered_product_grid_margin_top_second">
+
+    <!-- Product card layout used in MDC-103 and onward -->
+    <LinearLayout
+        android:layout_width="@dimen/shr_staggered_product_grid_card_width_landscape"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/shr_staggered_product_grid_spacing_small"
+        android:foreground="?selectableItemBackground"
+        android:layout_marginRight="@dimen/shr_staggered_product_grid_spacing_small"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/shr_staggered_product_grid_card_height_landscape"
+            android:background="?attr/colorPrimaryDark"
+            android:scaleType="centerCrop" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/text_title"
+                    style="@style/TextViewHead"
+                    android:layout_width="0dp"
+                    android:layout_weight="9"
+                    android:text="@string/shr_product_title"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <ImageButton
+                    android:id="@+id/image_button"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:padding="5dp"
+                    app:srcCompat="@drawable/ic_more"
+                    tools:ignore="ContentDescription" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_price"
+                style="@style/TextViewSubHead"
+                android:layout_width="match_parent"
+                android:text="@string/shr_product_description"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

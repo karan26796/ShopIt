@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="8"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_small"
+    tools:ignore="RtlSymmetry">
+
+    <ImageButton
+        android:id="@+id/image_button_delete"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin_smaller"
+        android:layout_weight="1"
+        android:background="?selectableItemBackgroundBorderless"
+        android:padding="5dp"
+        app:srcCompat="@drawable/ic_delete"
+        tools:ignore="ContentDescription" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="2">
+
+        <com.google.codelabs.mdc.java.shrine.SquareImageView
+            android:id="@+id/image_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop" />
+
+        <ProgressBar
+            android:id="@android:id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_smaller">
+
+        <TextView
+            android:id="@+id/text_cart_title"
+            style="@style/TextViewHead"
+            android:layout_marginStart="@dimen/padding_smaller"
+            android:paddingBottom="@dimen/padding_smallest"
+            android:paddingStart="@dimen/padding_smallest"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/text_cart_quantity"
+            style="@style/TextViewSubHead"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="@dimen/padding_smaller"
+            android:paddingBottom="@dimen/padding_smallest"
+            android:paddingStart="@dimen/padding_smallest"
+            android:text="Qty: 1"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/text_cart_price"
+            style="@style/TextViewSubHead"
+            android:layout_marginStart="@dimen/padding_smaller"
+            android:paddingBottom="@dimen/padding_smallest"
+            android:paddingStart="@dimen/padding_smallest"
+            android:textSize="16sp" />
+
+
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:background="?android:attr/listDivider" />-->
+
+        <!--<androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:id="@+id/image_button_later"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_save_for_later"
+                tools:ignore="ContentDescription" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_favorite"
+                tools:ignore="ContentDescription" />
+        </androidx.appcompat.widget.LinearLayoutCompat>-->
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>
