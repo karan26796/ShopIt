@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.google.codelabs.mdc.java.shrine.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,6 +69,11 @@ public class ImageViewActivity extends AppCompatActivity implements ImageIndivid
             dotsLinearLayout.setVisibility(View.VISIBLE);
             actionBar = true;
         }
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return true;
     }
 
     @Override

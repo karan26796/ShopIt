@@ -1,29 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/options_recycler"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="16dp">
-
-    <TextView
-        style="@style/TextViewHead"
-        android:text="This is a BottomSheet"
-        android:textSize="18sp"
-        android:textAlignment="center"/>
-
-    <Button
-        android:id="@+id/button1"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="button 1" />
-
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.MaterialComponents.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="button 2" />
-
-</LinearLayout>
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_bg" />

@@ -4,18 +4,21 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.codelabs.mdc.java.shrine.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.recyclerview.widget.RecyclerView;
 import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
@@ -80,15 +83,35 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView mCartTitle;
         ProgressBar mCartProgress;
         ImageButton btnDelete, btnSave;
+        AppCompatSpinner spinnerQty, spinnerColor;
 
         public CartViewHolder(View itemView) {
             super(itemView);
             btnDelete = itemView.findViewById(R.id.image_button_delete);
+            spinnerColor = itemView.findViewById(R.id.spinner_color);
+            spinnerQty = itemView.findViewById(R.id.spinner_qty);
 
             mCartImage = itemView.findViewById(R.id.image_cart);
             mCartTitle = itemView.findViewById(R.id.text_cart_title);
             mCartPrice = itemView.findViewById(R.id.text_cart_price);
             mCartProgress = itemView.findViewById(android.R.id.progress);
+
+            List<String> categories = new ArrayList<>();
+            categories.add("Automobile");
+            categories.add("Business Services");
+            categories.add("Computers");
+            categories.add("Education");
+            categories.add("Personal");
+            categories.add("Travel");
+
+            // Creating adapter for spinner
+            ArrayAdapter<String>
+                    dataAdapter = new ArrayAdapter<>
+                    (itemView.getContext(), android.R.layout.simple_spinner_item, categories);
+            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            spinnerQty.setAdapter(dataAdapter);
+            spinnerColor.setAdapter(dataAdapter);
 
             itemView.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
@@ -111,5 +134,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             mClickListener.onCartItemLongClicked(this, getAdapterPosition());
             return false;
         }
+
     }
 }

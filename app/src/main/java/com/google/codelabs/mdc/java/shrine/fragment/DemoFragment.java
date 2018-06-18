@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.shrine.fragment;
 
 import android.content.Intent;
 import android.os.Build;
@@ -11,9 +11,16 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButton;
+import com.google.codelabs.mdc.java.shrine.BottomSheetDialog;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.activities.DetailActivity;
+import com.google.codelabs.mdc.java.shrine.activities.DummyActivity;
 import com.google.codelabs.mdc.java.shrine.adapter.RecyclerViewAdapter;
 import com.google.codelabs.mdc.java.shrine.sql.ProductDBHelper;
+import com.google.codelabs.mdc.java.shrine.utils.NavigationIconClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,9 +33,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoFragment extends Fragment
-        implements RecyclerViewAdapter.onClickListener, BottomSheetDialog.BottomSheetListener {
+        implements RecyclerViewAdapter.onClickListener, BottomSheetDialog.BottomSheetListener, View.OnClickListener {
 
-    RecyclerView recyclerView;
+    MaterialButton myAccBtn;
+    private RecyclerView recyclerView;
     private ProductDBHelper productDBHelper;
 
     public static DemoFragment newInstance() {
@@ -64,6 +72,7 @@ public class DemoFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         setUpToolbar(view);
+        myAccBtn = view.findViewById(R.id.button_my_account);
         productDBHelper = new ProductDBHelper(getContext());
         recyclerView = view.findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
@@ -80,6 +89,7 @@ public class DemoFragment extends Fragment
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             view.findViewById(R.id.product_grid).setBackground(getContext().getDrawable(R.drawable.shr_product_grid_background_shape));
         }
+        myAccBtn.setOnClickListener(this);
         return view;
     }
 
@@ -89,6 +99,12 @@ public class DemoFragment extends Fragment
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), p1);
         startActivity(new Intent(getContext(), DetailActivity.class)
                 .putExtras(bundle), optionsCompat.toBundle());
+    }
+
+    @Override
+    public void onItemLongClicked(int position, RecyclerViewAdapter.RecyclerViewHolder viewHolder, Bundle bundle) {
+        BottomSheetDialogFragment fragment = new BottomSheetDialog();
+        fragment.show(getActivity().getSupportFragmentManager(), "ex");
     }
 
     @Override
@@ -109,5 +125,10 @@ public class DemoFragment extends Fragment
 
     @Override
     public void onButtonClicked(String text) {
+    }
+
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(getContext(), DummyActivity.class));
     }
 }

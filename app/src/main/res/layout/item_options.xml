@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="horizontal"
+    android:padding="@dimen/padding_small"
+    android:weightSum="10">
+
+    <com.google.codelabs.mdc.java.shrine.utils.SquareImageView
+        android:id="@+id/image_options"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_smaller"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_smallest" />
+
+    <TextView
+        android:id="@+id/text_options"
+        style="@style/TextViewHead"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_weight="9"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_smaller"
+        android:textSize="15sp" />
+</LinearLayout>

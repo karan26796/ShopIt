@@ -1,10 +1,11 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.shrine.model;
 
 import android.content.res.Resources;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import com.google.codelabs.mdc.java.shrine.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

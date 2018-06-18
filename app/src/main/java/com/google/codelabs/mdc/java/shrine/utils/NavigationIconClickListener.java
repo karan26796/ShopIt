@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.shrine.utils;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -10,6 +10,8 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.widget.ImageView;
+
+import com.google.codelabs.mdc.java.shrine.R;
 
 /**
  * {@link View.OnClickListener} used to translate the product grid sheet downward on
@@ -34,7 +36,7 @@ public class NavigationIconClickListener implements View.OnClickListener {
         this(context, sheet, interpolator, null, null);
     }
 
-    NavigationIconClickListener(
+    public NavigationIconClickListener(
             Context context, View sheet, @Nullable Interpolator interpolator,
             @Nullable Drawable openIcon, @Nullable Drawable closeIcon) {
         this.context = context;

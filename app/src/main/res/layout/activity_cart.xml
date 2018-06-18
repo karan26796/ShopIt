@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.google.codelabs.mdc.java.shrine.SquareImageView
+                <com.google.codelabs.mdc.java.shrine.utils.SquareImageView
                     android:id="@+id/image_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

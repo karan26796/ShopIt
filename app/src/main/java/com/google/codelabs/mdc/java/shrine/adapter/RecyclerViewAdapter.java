@@ -9,7 +9,7 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.codelabs.mdc.java.shrine.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -43,6 +43,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public interface onClickListener {
         void onItemClicked(int position, RecyclerViewAdapter.RecyclerViewHolder viewHolder, Bundle bundle);
+
+        void onItemLongClicked(int position, RecyclerViewAdapter.RecyclerViewHolder viewHolder, Bundle bundle);
 
         void onOptionsClicked(int position, View view, ProductEntry productEntry);
     }
@@ -102,7 +104,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mArrayList.size();
     }
 
-    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+            View.OnLongClickListener {
         public AppCompatImageView imageView;
         public TextView textPrice, textTitle;
         ImageButton imageButton;
@@ -119,6 +122,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             imageButton.setOnClickListener(this);
             itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
         }
 
         @Override
@@ -133,6 +137,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 bundle.putInt("position", getAdapterPosition());
                 mClickListener.onItemClicked(getAdapterPosition(), this, bundle);
             }
+        }
+
+        @Override
+        public boolean onLongClick(View view) {
+            Bundle bundle = new Bundle();
+            ProductEntry product = mArrayList.get(getAdapterPosition());
+            bundle.putParcelable("item", product);
+            bundle.putInt("position", getAdapterPosition());
+            mClickListener.onItemLongClicked(getAdapterPosition(), this, bundle);
+            return true;
         }
     }
 }

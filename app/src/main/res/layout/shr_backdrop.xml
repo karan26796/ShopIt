@@ -37,6 +37,7 @@
         android:background="@color/textColorPrimary" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_my_account"
         style="@style/Widget.Shrine.Button.TextButton"
         android:text="@string/shr_account_label" />
 

@@ -3,6 +3,7 @@ package com.google.codelabs.mdc.java.shrine.adapter;
 import android.content.res.Resources;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -31,6 +32,8 @@ public class ImageIndividualSliderAdapter extends PagerAdapter implements View.O
     private AppCompatImageView imageView;
     private List<UrlModel> mImagesList;
     private onIndividualImageClick mListener;
+    private ScaleGestureDetector mScaleGestureDetector;
+    private float mScaleFactor = 1.0f;
 
     public ImageIndividualSliderAdapter(List<UrlModel> mImagesList, onIndividualImageClick mListener) {
         this.mListener = mListener;
@@ -72,8 +75,22 @@ public class ImageIndividualSliderAdapter extends PagerAdapter implements View.O
                     });
         }
         container.addView(itemView);
+        mScaleGestureDetector = new ScaleGestureDetector(itemView.getContext(), new ScaleListener());
+
         imageView.setOnClickListener(this);
         return itemView;
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector scaleGestureDetector) {
+            mScaleFactor *= scaleGestureDetector.getScaleFactor();
+            mScaleFactor = Math.max(0.1f,
+                    Math.min(mScaleFactor, 10.0f));
+            imageView.setScaleX(mScaleFactor);
+            imageView.setScaleY(mScaleFactor);
+            return true;
+        }
     }
 
     @Override
@@ -127,4 +144,5 @@ public class ImageIndividualSliderAdapter extends PagerAdapter implements View.O
             this.url = url;
         }
     }
+
 }

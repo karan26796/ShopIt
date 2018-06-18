@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.google.codelabs.mdc.java.shrine.DemoFragment;
+import com.google.codelabs.mdc.java.shrine.fragment.DemoFragment;
 import com.google.codelabs.mdc.java.shrine.R;
 
 import androidx.annotation.Nullable;

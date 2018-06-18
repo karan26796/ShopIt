@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.java.shrine;
+package com.google.codelabs.mdc.java.shrine.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;

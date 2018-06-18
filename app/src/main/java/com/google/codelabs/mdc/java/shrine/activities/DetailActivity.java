@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.codelabs.mdc.java.shrine.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.adapter.ImageSliderAdapter;
 

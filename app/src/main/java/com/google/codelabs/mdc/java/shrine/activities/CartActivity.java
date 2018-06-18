@@ -6,7 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.codelabs.mdc.java.shrine.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.adapter.CartAdapter;
 import com.google.codelabs.mdc.java.shrine.sql.ProductDBHelper;
