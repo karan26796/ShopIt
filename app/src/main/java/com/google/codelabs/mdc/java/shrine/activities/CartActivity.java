@@ -3,6 +3,7 @@ package com.google.codelabs.mdc.java.shrine.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.codelabs.mdc.java.shrine.ProductEntry;
@@ -13,6 +14,7 @@ import com.google.codelabs.mdc.java.shrine.sql.ProductDBHelper;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,6 +30,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.onCar
     CartAdapter cartAdapter;
     List<ProductEntry> mList;
     AppCompatTextView textItems, textTotal;
+    AppCompatImageView imageError;
     Toolbar toolbar;
 
     @Override
@@ -39,7 +42,7 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.onCar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
+        imageError = findViewById(R.id.image_error);
         refreshLayout = findViewById(R.id.swipeCart);
         productDBHelper = new ProductDBHelper(this);
 
@@ -90,6 +93,11 @@ public class CartActivity extends AppCompatActivity implements CartAdapter.onCar
     private void setRecyclerView() {
         refreshLayout.setRefreshing(true);
         mList = productDBHelper.productList();
+        if (mList.size() != 0) {
+            imageError.setVisibility(View.GONE);
+        } else {
+            imageError.setVisibility(View.VISIBLE);
+        }
         textItems.setText("No. of items: " + mList.size());
         int total = 0;
         for (int i = 0; i < mList.size(); i++) {

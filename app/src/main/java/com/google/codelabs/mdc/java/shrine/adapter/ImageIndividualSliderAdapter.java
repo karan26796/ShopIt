@@ -26,19 +26,19 @@ import java.util.List;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.viewpager.widget.PagerAdapter;
 
-public class ImageSliderAdapter extends PagerAdapter implements View.OnClickListener {
+public class ImageIndividualSliderAdapter extends PagerAdapter implements View.OnClickListener {
 
     private AppCompatImageView imageView;
     private List<UrlModel> mImagesList;
-    onImageClick mListener;
+    private onIndividualImageClick mListener;
 
-    public ImageSliderAdapter(List<UrlModel> mImagesList, onImageClick mListener) {
+    public ImageIndividualSliderAdapter(List<UrlModel> mImagesList, onIndividualImageClick mListener) {
         this.mListener = mListener;
         this.mImagesList = mImagesList;
     }
 
-    public interface onImageClick {
-        void onImageClick(View view);
+    public interface onIndividualImageClick {
+        void onImageClicked(View view);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class ImageSliderAdapter extends PagerAdapter implements View.OnClickList
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View itemView = LayoutInflater.from(container.getContext())
-                .inflate(R.layout.item_image_slider, container, false);
-        imageView = itemView.findViewById(R.id.image_slider);
+                .inflate(R.layout.item_individual_image_slider, container, false);
+        imageView = itemView.findViewById(R.id.image_individual_slider);
         if (mImagesList != null && position < mImagesList.size()) {
             Picasso.get()
                     .load(mImagesList.get(position).url)
@@ -109,7 +109,7 @@ public class ImageSliderAdapter extends PagerAdapter implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        mListener.onImageClick(view);
+        mListener.onImageClicked(view);
     }
 
     public class UrlModel {

@@ -34,9 +34,11 @@
                 android:orientation="vertical">
 
                 <com.google.codelabs.mdc.java.shrine.SquareImageView
+                    android:id="@+id/image_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     app:srcCompat="@drawable/ic_favorite" />
 
                 <androidx.recyclerview.widget.RecyclerView

@@ -1,7 +1,9 @@
 package com.google.codelabs.mdc.java.shrine.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -18,7 +20,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements ImageSliderAdapter.onImageClick {
     AppCompatImageView imageView;
     Bundle bundle;
     Toolbar toolbar;
@@ -35,7 +37,7 @@ public class DetailActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar_detail);
         viewPager = findViewById(R.id.viewPagerSlider);
 
-        viewPagerAdapter = new ImageSliderAdapter(ImageSliderAdapter.initProductEntryList(getResources()));
+        viewPagerAdapter = new ImageSliderAdapter(ImageSliderAdapter.initProductEntryList(getResources()), this);
         viewPager.setAdapter(viewPagerAdapter);
         //imageView = findViewById(R.id.image_detail);
         textView = findViewById(R.id.text_title_detail);
@@ -80,5 +82,11 @@ public class DetailActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onImageClick(View view) {
+        startActivity(new Intent(this,
+                ImageViewActivity.class));
     }
 }
