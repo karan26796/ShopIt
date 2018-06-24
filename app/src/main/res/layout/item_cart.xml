@@ -9,7 +9,7 @@
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="horizontal"
-    android:padding="@dimen/padding_small"
+    android:padding="@dimen/padding_smaller"
     tools:ignore="RtlSymmetry">
 
     <ImageButton
@@ -17,9 +17,8 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/margin_smaller"
-        android:layout_weight="1"
+        android:layout_weight=".5"
         android:background="?selectableItemBackgroundBorderless"
-        android:padding="5dp"
         app:srcCompat="@drawable/ic_delete"
         tools:ignore="ContentDescription" />
 
@@ -27,13 +26,14 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_weight="2">
+        android:layout_weight="2.5">
 
         <com.google.codelabs.mdc.java.shrine.utils.SquareImageView
             android:id="@+id/image_cart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_margin="@dimen/margin_smaller"
             android:scaleType="centerCrop" />
 
         <ProgressBar
@@ -48,8 +48,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:orientation="vertical"
-        android:padding="@dimen/padding_smaller">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/text_cart_title"
@@ -57,11 +56,12 @@
             android:layout_marginStart="@dimen/padding_smaller"
             android:paddingBottom="@dimen/padding_smallest"
             android:paddingStart="@dimen/padding_smallest"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_smaller"
             android:weightSum="2">
 
             <androidx.appcompat.widget.AppCompatSpinner
@@ -77,44 +77,64 @@
                 android:layout_weight="1" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_cart_quantity"
-            style="@style/TextViewSubHead"
-            android:layout_width="wrap_content"
-            android:layout_marginStart="@dimen/padding_smaller"
-            android:paddingBottom="@dimen/padding_smallest"
-            android:paddingStart="@dimen/padding_smallest"
-            android:text="Qty: 1"
-            android:textSize="16sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_smaller"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_smaller"
+            android:visibility="gone"
+            android:weightSum="5">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_remove" />
+
+            <TextView
+                android:id="@+id/text_cart_quantity"
+                style="@style/TextViewSubHead"
+                android:layout_width="0dp"
+                android:layout_marginStart="@dimen/padding_smaller"
+                android:layout_weight="3"
+                android:paddingBottom="@dimen/padding_smallest"
+                android:paddingStart="@dimen/padding_smallest"
+                android:text="Qty: 1"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_add" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/text_cart_price"
             style="@style/TextViewSubHead"
-            android:layout_marginStart="@dimen/padding_smaller"
+            android:layout_marginStart="@dimen/margin_smaller"
+            android:layout_marginTop="@dimen/margin_smaller"
             android:paddingBottom="@dimen/padding_smallest"
             android:paddingStart="@dimen/padding_smallest"
             android:textSize="16sp" />
 
-
-        <!--<View
+        <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_gravity="center_vertical"
-            android:background="?android:attr/listDivider" />-->
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="?android:attr/listDivider" />
 
-        <!--<androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/margin_small"
             android:orientation="horizontal"
-            android:weightSum="3">
-
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:background="?android:attr/listDivider" />
+            android:weightSum="2">
 
             <ImageButton
                 android:id="@+id/image_button_later"
@@ -133,6 +153,7 @@
                 android:background="?android:attr/listDivider" />
 
             <ImageButton
+                android:id="@+id/image_button_favorite"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -140,7 +161,7 @@
                 android:padding="5dp"
                 app:srcCompat="@drawable/ic_favorite"
                 tools:ignore="ContentDescription" />
-        </androidx.appcompat.widget.LinearLayoutCompat>-->
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

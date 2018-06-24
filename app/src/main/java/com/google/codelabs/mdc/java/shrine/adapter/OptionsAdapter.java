@@ -14,10 +14,16 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionsViewHolder> {
-    ArrayList<Options> mList;
+    private ArrayList<Options> mList;
+    private optionClickListener mListener;
 
-    public OptionsAdapter(ArrayList<Options> mList) {
+    public OptionsAdapter(ArrayList<Options> mList, optionClickListener mListener) {
         this.mList = mList;
+        this.mListener = mListener;
+    }
+
+    public interface optionClickListener {
+        void onOptionClicked(View view, int position);
     }
 
     @Override
@@ -39,7 +45,7 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionsV
         return mList.size();
     }
 
-    public class OptionsViewHolder extends RecyclerView.ViewHolder {
+    public class OptionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         AppCompatImageView optionsImageView;
         TextView optionsTitle;
 
@@ -47,6 +53,13 @@ public class OptionsAdapter extends RecyclerView.Adapter<OptionsAdapter.OptionsV
             super(itemView);
             optionsImageView = itemView.findViewById(R.id.image_options);
             optionsTitle = itemView.findViewById(R.id.text_options);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            mListener.onOptionClicked(view, getAdapterPosition());
         }
     }
 }

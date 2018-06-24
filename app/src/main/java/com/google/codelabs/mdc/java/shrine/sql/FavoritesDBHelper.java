@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.model.Favorites;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -15,17 +15,17 @@ import java.util.List;
  * Created by karan on 4/19/2018.
  */
 
-public class ProductDBHelper extends SQLiteOpenHelper {
+public class FavoritesDBHelper extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "Cart.db";
+    private static final String DATABASE_NAME = "Favorites.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "Cart";
+    private static final String TABLE_NAME = "Favorites";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_TITLE = "text";
     private static final String COLUMN_PRICE = "price";
     private static final String COLUMN_IMAGE = "image";
 
-    public ProductDBHelper(Context context) {
+    public FavoritesDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -45,12 +45,12 @@ public class ProductDBHelper extends SQLiteOpenHelper {
         this.onCreate(db);
     }
 
-    public boolean newProduct(ProductEntry productEntry) {
+    public boolean newFavorite(Favorites favorites) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_TITLE, productEntry.getTitle());
-        values.put(COLUMN_PRICE, productEntry.getPrice());
-        values.put(COLUMN_IMAGE, productEntry.getUrl());
+        values.put(COLUMN_TITLE, favorites.getTitle());
+        values.put(COLUMN_PRICE, favorites.getPrice());
+        values.put(COLUMN_IMAGE, favorites.getUrl());
 
         long result = database.insert(TABLE_NAME, null, values);
         if (result == -1)
@@ -59,28 +59,30 @@ public class ProductDBHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<ProductEntry> productList() {
-        List<ProductEntry> productEntryList = new LinkedList<>();
+    public List<Favorites> favoritesList() {
+        List<Favorites> favorites = new LinkedList<>();
         SQLiteDatabase database = this.getWritableDatabase();
 
         Cursor cursor = database.rawQuery("SELECT * FROM " + TABLE_NAME, null);
-        ProductEntry productEntry;
+        Favorites favorites1;
 
         if (cursor.moveToFirst()) {
             do {
-                productEntry = new ProductEntry();
+                favorites1 = new Favorites();
 
-                productEntry.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
-                productEntry.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
-                productEntry.setPrice(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
-                productEntry.setUrl(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE)));
-                productEntryList.add(productEntry);
+                favorites1.setId(cursor.getLong(cursor.getColumnIndex(COLUMN_ID)));
+                favorites1.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
+                favorites1.setPrice(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
+                favorites1.setUrl(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE)));
+
+                favorites.add(favorites1);
             } while (cursor.moveToNext());
         }
-        return productEntryList;
+        cursor.close();
+        return favorites;
     }
 
-    public boolean deleteProduct(long id) {
+    public boolean deleteFavorite(long id) {
         SQLiteDatabase database = this.getWritableDatabase();
         database.execSQL("DELETE FROM " + TABLE_NAME + " WHERE _id='" + id + "'");
         return true;

@@ -13,7 +13,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class ViewPagerAdapter extends androidx.fragment.app.FragmentStatePagerAdapter {
     private final List<Fragment> mFragmentList = new ArrayList<>();
-    //private final List<String> mFragmentTitleList = new ArrayList<>();
+    private final List<String> mFragmentTitleList = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager manager) {
         super(manager);
@@ -29,14 +29,14 @@ public class ViewPagerAdapter extends androidx.fragment.app.FragmentStatePagerAd
         return mFragmentList.size();
     }
 
-    public void addFragment(Fragment fragment) {
+    public void addFragment(Fragment fragment, String title) {
         mFragmentList.add(fragment);
-        //mFragmentTitleList.add(title);
+        mFragmentTitleList.add(title);
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "";
+        return mFragmentTitleList.get(position);
     }
 
 }

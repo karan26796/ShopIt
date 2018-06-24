@@ -20,61 +20,46 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductEntry implements Parcelable {
+public class ProductEntry extends Favorites implements Parcelable {
     private static final String TAG = ProductEntry.class.getSimpleName();
-
-    public String title;
-    public String url;
-    public String price;
-    private long id;
+    private List<String> color = new ArrayList<>();
+    private List<String> size = new ArrayList<>();
+    public int qty;
 
     public ProductEntry() {
-
     }
 
-    public String getTitle() {
-        return title;
+    public List<String> getColor() {
+        return color;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setColor(List<String> color) {
+        this.color = color;
     }
 
-    public String getUrl() {
-        return url;
+    public List<String> getSize() {
+        return size;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setSize(List<String> size) {
+        this.size = size;
     }
 
-    public String getPrice() {
-        return price;
+    public int getQty() {
+        return qty;
     }
 
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public ProductEntry(
-            String title, String url, String price) {
-        this.title = title;
-        this.url = url;
-        this.price = price;
+    public void setQty(int qty) {
+        this.qty = qty;
     }
 
     protected ProductEntry(Parcel in) {
         title = in.readString();
         url = in.readString();
         price = in.readString();
+        qty = in.readInt();
+        color = in.createStringArrayList();
+        size = in.createStringArrayList();
     }
 
     public static final Creator<ProductEntry> CREATOR = new Creator<ProductEntry>() {
@@ -128,5 +113,8 @@ public class ProductEntry implements Parcelable {
         parcel.writeString(title);
         parcel.writeString(url);
         parcel.writeString(price);
+        parcel.writeInt(qty);
+        parcel.writeStringList(color);
+        parcel.writeStringList(size);
     }
 }

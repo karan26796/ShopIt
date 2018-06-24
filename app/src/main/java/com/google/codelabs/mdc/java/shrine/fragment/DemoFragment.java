@@ -14,11 +14,11 @@ import android.widget.Toast;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.codelabs.mdc.java.shrine.BottomSheetDialog;
-import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.activities.DetailActivity;
 import com.google.codelabs.mdc.java.shrine.activities.DummyActivity;
 import com.google.codelabs.mdc.java.shrine.adapter.RecyclerViewAdapter;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.sql.ProductDBHelper;
 import com.google.codelabs.mdc.java.shrine.utils.NavigationIconClickListener;
 
@@ -33,9 +33,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoFragment extends Fragment
-        implements RecyclerViewAdapter.onClickListener, BottomSheetDialog.BottomSheetListener, View.OnClickListener {
+        implements RecyclerViewAdapter.onClickListener, View.OnClickListener {
 
-    MaterialButton myAccBtn;
+    private MaterialButton myAccBtn;
     private RecyclerView recyclerView;
     private ProductDBHelper productDBHelper;
 
@@ -50,6 +50,7 @@ public class DemoFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        productDBHelper = new ProductDBHelper(getContext());
     }
 
     private void setUpToolbar(View view) {
@@ -73,7 +74,6 @@ public class DemoFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         setUpToolbar(view);
         myAccBtn = view.findViewById(R.id.button_my_account);
-        productDBHelper = new ProductDBHelper(getContext());
         recyclerView = view.findViewById(R.id.recyclerView);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
         gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -103,28 +103,19 @@ public class DemoFragment extends Fragment
 
     @Override
     public void onItemLongClicked(int position, RecyclerViewAdapter.RecyclerViewHolder viewHolder, Bundle bundle) {
-        BottomSheetDialogFragment fragment = new BottomSheetDialog();
-        fragment.show(getActivity().getSupportFragmentManager(), "ex");
     }
 
     @Override
-    public void onOptionsClicked(int position, View view, ProductEntry productEntry) {
-        boolean added = productDBHelper.newProduct(productEntry);
-        if (added) {
-            Toast.makeText(getContext(), "Added", Toast.LENGTH_SHORT).show();
-        } else Toast.makeText(getContext(), "Added, Not", Toast.LENGTH_SHORT).show();
-        /*BottomSheetDialogFragment fragment = new BottomSheetDialog();
-        fragment.show(getActivity().getSupportFragmentManager(), "ex");*/
+    public void onOptionsClicked(int position, View view, Bundle bundle) {
+        BottomSheetDialogFragment fragment = new BottomSheetDialog();
+        fragment.show(getActivity().getSupportFragmentManager(), "ex");
+        fragment.setArguments(bundle);
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         menuInflater.inflate(R.menu.shr_toolbar_menu, menu);
         super.onCreateOptionsMenu(menu, menuInflater);
-    }
-
-    @Override
-    public void onButtonClicked(String text) {
     }
 
     @Override

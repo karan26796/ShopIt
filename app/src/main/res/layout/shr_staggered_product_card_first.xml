@@ -41,7 +41,7 @@
                 android:id="@+id/text_title"
                 style="@style/TextViewHead"
                 android:layout_width="0dp"
-                android:layout_weight="9"
+                android:layout_weight="8"
                 android:text="@string/shr_product_title"
                 android:textAlignment="center"
                 android:textSize="18sp" />
@@ -50,7 +50,7 @@
                 android:id="@+id/image_button"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:background="?selectableItemBackgroundBorderless"
                 android:padding="5dp"
                 app:srcCompat="@drawable/ic_more"

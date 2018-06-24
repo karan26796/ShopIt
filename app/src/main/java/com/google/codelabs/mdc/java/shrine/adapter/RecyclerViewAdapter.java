@@ -9,8 +9,8 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -23,7 +23,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         implements Filterable {
 
     private List<ProductEntry> mArrayList;
-    private List<ProductEntry> mDisplayList;
     private onClickListener mClickListener;
 
     @Override
@@ -46,7 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         void onItemLongClicked(int position, RecyclerViewAdapter.RecyclerViewHolder viewHolder, Bundle bundle);
 
-        void onOptionsClicked(int position, View view, ProductEntry productEntry);
+        void onOptionsClicked(int position, View view, Bundle bundle);
     }
 
     public RecyclerViewAdapter(List<ProductEntry> mArrayList, onClickListener mClickListener) {
@@ -128,8 +127,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View view) {
             if (view == imageButton) {
+
+                Bundle bundle = new Bundle();
                 ProductEntry product = mArrayList.get(getAdapterPosition());
-                mClickListener.onOptionsClicked(getAdapterPosition(), view, product);
+                bundle.putParcelable("item", product);
+                bundle.putInt("position", getAdapterPosition());
+                mClickListener.onOptionsClicked(getAdapterPosition(), view, bundle);
             } else if (view == itemView) {
                 Bundle bundle = new Bundle();
                 ProductEntry product = mArrayList.get(getAdapterPosition());

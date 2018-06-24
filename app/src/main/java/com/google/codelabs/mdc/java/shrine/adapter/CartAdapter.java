@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
@@ -20,7 +21,6 @@ import java.util.List;
 
 import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.recyclerview.widget.RecyclerView;
-import jp.wasabeef.picasso.transformations.RoundedCornersTransformation;
 
 /**
  * Created by karan on 4/19/2018.
@@ -40,7 +40,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         void onCartItemDeleteClicked(CartViewHolder viewHolder, int position);
 
-        void onCartItemLongClicked(CartViewHolder viewHolder, int position);
+        void onCartItemFavoriteClicked(CartViewHolder viewHolder, int position, ProductEntry productEntry);
     }
 
     @Override
@@ -55,9 +55,32 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.mCartTitle.setText(mList.get(position).getTitle());
         holder.mCartPrice.setText(mList.get(position).getPrice());
         holder.mCartProgress.setVisibility(View.VISIBLE);
+        List<String> size = new ArrayList<>();
+        size.add("14");
+        size.add("16");
+        size.add("18");
+        size.add("20");
+        try {
+            //size = mList.get(position).getColor();
+            Toast.makeText(holder.itemView.getContext(), size.size(), Toast.LENGTH_SHORT).show();
+
+        } catch (Exception e) {
+            Toast.makeText(holder.itemView.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+        ArrayAdapter<String>
+                colorAdapter = new ArrayAdapter<>
+                (holder.itemView.getContext(), android.R.layout.simple_spinner_item, size);
+        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.spinnerColor.setAdapter(colorAdapter);
+
+        ArrayAdapter<String>
+                sizeAdapter = new ArrayAdapter<>
+                (holder.itemView.getContext(), android.R.layout.simple_spinner_item, size);
+        sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.spinnerQty.setAdapter(sizeAdapter);
+
         Picasso.get()
                 .load(mList.get(position).getUrl())
-                .transform(new RoundedCornersTransformation(25, 5))
                 .into(holder.mCartImage, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -82,12 +105,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView mCartPrice;
         TextView mCartTitle;
         ProgressBar mCartProgress;
-        ImageButton btnDelete, btnSave;
+        ImageButton btnDelete, btnFavorite;
         AppCompatSpinner spinnerQty, spinnerColor;
 
         public CartViewHolder(View itemView) {
             super(itemView);
             btnDelete = itemView.findViewById(R.id.image_button_delete);
+            btnFavorite = itemView.findViewById(R.id.image_button_favorite);
             spinnerColor = itemView.findViewById(R.id.spinner_color);
             spinnerQty = itemView.findViewById(R.id.spinner_qty);
 
@@ -96,25 +120,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             mCartPrice = itemView.findViewById(R.id.text_cart_price);
             mCartProgress = itemView.findViewById(android.R.id.progress);
 
-            List<String> categories = new ArrayList<>();
-            categories.add("Automobile");
-            categories.add("Business Services");
-            categories.add("Computers");
-            categories.add("Education");
-            categories.add("Personal");
-            categories.add("Travel");
-
-            // Creating adapter for spinner
-            ArrayAdapter<String>
-                    dataAdapter = new ArrayAdapter<>
-                    (itemView.getContext(), android.R.layout.simple_spinner_item, categories);
-            dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-            spinnerQty.setAdapter(dataAdapter);
-            spinnerColor.setAdapter(dataAdapter);
-
-            itemView.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
+            btnFavorite.setOnClickListener(this);
+            itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);
         }
 
@@ -127,11 +135,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
             if (v == btnDelete)
                 mClickListener.onCartItemDeleteClicked(this, getAdapterPosition());
+            if (v == btnFavorite) {
+                ProductEntry productEntry = mList.get(getAdapterPosition());
+                mClickListener.onCartItemFavoriteClicked(this, getAdapterPosition(), productEntry);
+            }
         }
 
         @Override
         public boolean onLongClick(View v) {
-            mClickListener.onCartItemLongClicked(this, getAdapterPosition());
+            try {
+                Toast.makeText(v.getContext(), "Color: " + mList.get(getAdapterPosition()).getPrice(), Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(v.getContext(), "Exception: " +
+                        e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
             return false;
         }
 

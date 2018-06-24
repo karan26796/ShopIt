@@ -1,27 +1,33 @@
 package com.google.codelabs.mdc.java.shrine.activities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
-import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import com.google.codelabs.mdc.java.shrine.R;
+import com.google.codelabs.mdc.java.shrine.adapter.ColorsAdapter;
 import com.google.codelabs.mdc.java.shrine.adapter.ImageSliderAdapter;
+import com.google.codelabs.mdc.java.shrine.model.Favorites;
+import com.google.codelabs.mdc.java.shrine.model.ProductColors;
+import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 public class DetailActivity extends AppCompatActivity implements ImageSliderAdapter.onImageClick {
     AppCompatImageView imageView;
+    ArrayList<ProductColors> mList;
+    RecyclerView recyclerColor;
     Bundle bundle;
     Toolbar toolbar;
     ChipGroup chipGroup;
@@ -40,9 +46,11 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
         viewPagerAdapter = new ImageSliderAdapter(ImageSliderAdapter.initProductEntryList(getResources()), this);
         viewPager.setAdapter(viewPagerAdapter);
         //imageView = findViewById(R.id.image_detail);
+        recyclerColor = findViewById(R.id.recycler_colors);
+        setRecyclerColor();
         textView = findViewById(R.id.text_title_detail);
 
-        chipGroup = new ChipGroup(this);
+        /*chipGroup = new ChipGroup(this);
         for (int i = 0; i < 5; i++) {
             Chip chip = new Chip(this, null, R.style.TextChip);
             chip.setText("Chip" + i);
@@ -50,8 +58,7 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
             chip.setTextAppearanceResource(R.style.TextChip);
             chipGroup.addView(chip);
         }
-        ((ViewGroup) findViewById(R.id.chip_group)).addView(chipGroup);
-
+        ((ViewGroup) findViewById(R.id.chip_group)).addView(chipGroup);*/
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -62,14 +69,18 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
             if (bundle.containsKey("item") && bundle.containsKey("position")) {
                 ProductEntry productEntry = bundle.getParcelable("item");
                 assert productEntry != null;
-                textView.setText(productEntry.title);
+                textView.setText(productEntry.getTitle());
                 viewPager.setCurrentItem(bundle.getInt("position"));
             } else if (bundle.containsKey("cartItem")) {
                 ProductEntry productEntry = bundle.getParcelable("cartItem");
                 assert productEntry != null;
-                textView.setText(productEntry.title);
+                textView.setText(productEntry.getTitle());
+            } else if (bundle.containsKey("favoriteItem")) {
+                Favorites favorites = bundle.getParcelable("favoriteItem");
+                assert favorites != null;
+                textView.setText(favorites.getTitle());
             } else {
-                imageView.setImageResource(R.drawable.shr_search);
+                //imageView.setImageResource(R.drawable.shr_search);
                 textView.setText("Not Available");
             }
     }
@@ -88,5 +99,16 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
     public void onImageClick(View view) {
         startActivity(new Intent(this,
                 ImageViewActivity.class));
+    }
+
+    public void setRecyclerColor() {
+        recyclerColor.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mList = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            if (i % 2 == 0)
+                mList.add(new ProductColors(Color.GRAY));
+            else mList.add(new ProductColors(Color.BLUE));
+        }
+        recyclerColor.setAdapter(new ColorsAdapter(mList));
     }
 }

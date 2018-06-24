@@ -70,6 +70,7 @@
                     android:padding="10dp"
                     android:visibility="gone" />
 
+
                 <TextView
                     android:id="@+id/text_title_detail"
                     style="@style/TextViewHead"
@@ -84,6 +85,18 @@
                     style="@style/TextViewSubHead"
                     android:layout_margin="@dimen/text_margin"
                     android:text="@string/large_text" />
+
+                <TextView
+                    style="@style/TextViewHead"
+                    android:layout_marginStart="16dp"
+                    android:text="Colors Available"
+                    android:textSize="14sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_colors"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.google.android.material.card.MaterialCardView>
     </androidx.core.widget.NestedScrollView>
