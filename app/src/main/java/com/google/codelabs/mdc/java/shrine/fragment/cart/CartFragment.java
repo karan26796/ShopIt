@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.codelabs.mdc.java.shrine.OnFragmentRefreshListener;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.activities.DetailActivity;
 import com.google.codelabs.mdc.java.shrine.adapter.CartAdapter;
@@ -22,8 +23,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 public class CartFragment extends CartBaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+
     private RecyclerView recyclerView;
-    SwipeRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout;
     private CartAdapter cartAdapter;
     private AppCompatTextView textItems, textTotal;
     private AppCompatImageView imageError;
@@ -49,7 +51,7 @@ public class CartFragment extends CartBaseFragment implements SwipeRefreshLayout
     }
 
     @SuppressLint("StaticFieldLeak")
-    private void setRecyclerView() {
+    public void setRecyclerView() {
         final int[] total = {0};
         new AsyncTask<Void, Void, String>() {
 
@@ -66,30 +68,8 @@ public class CartFragment extends CartBaseFragment implements SwipeRefreshLayout
             // Runs on Ui thread
             @Override
             protected void onPostExecute(String data) {
-                cartAdapter = new CartAdapter(mCartList, new CartAdapter.onCartItemClickListener() {
-                    @Override
-                    public void onCartItemClicked(CartAdapter.CartViewHolder viewHolder, int position, Bundle bundle) {
-                        startActivity(new Intent(getContext(), DetailActivity.class)
-                                .putExtras(bundle));
-                    }
+                cartAdapter = new CartAdapter(mCartList, cartItemClickListener);
 
-                    @Override
-                    public void onCartItemDeleteClicked(CartAdapter.CartViewHolder viewHolder, int position) {
-                        boolean deleted = productDBHelper.deleteProduct(mCartList.get(position).getId());
-                        if (deleted) {
-                            Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                        } else
-                            Toast.makeText(getContext(), "Deleted, Note", Toast.LENGTH_SHORT).show();
-                        setRecyclerView();
-                    }
-
-                    @Override
-                    public void onCartItemFavoriteClicked(CartAdapter.CartViewHolder viewHolder, int position, ProductEntry productEntry) {
-                        productDBHelper.deleteProduct(mCartList.get(position).getId());
-                        favoritesDBHelper.newFavorite(mCartList.get(position));
-                        setRecyclerView();
-                    }
-                });
                 recyclerView.setAdapter(cartAdapter);
                 textItems.setText("No. of items: " + mCartList.size());
                 textTotal.setText("Cart Total: " + "$" + total[0]);
@@ -103,9 +83,41 @@ public class CartFragment extends CartBaseFragment implements SwipeRefreshLayout
     }
 
     @Override
+
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
         setRecyclerView();
         refreshLayout.setRefreshing(false);
     }
+
+    @Override
+    public void onListUpdate() {
+
+    }
+
+    private CartAdapter.onCartItemClickListener cartItemClickListener = new CartAdapter.onCartItemClickListener() {
+        @Override
+        public void onCartItemClicked(CartAdapter.CartViewHolder viewHolder, int position, Bundle bundle) {
+            startActivity(new Intent(getContext(), DetailActivity.class)
+                    .putExtras(bundle));
+        }
+
+        @Override
+        public void onCartItemDeleteClicked(CartAdapter.CartViewHolder viewHolder, int position) {
+            boolean deleted = productDBHelper.deleteProduct(mCartList.get(position).getId());
+            if (deleted) {
+                Toast.makeText(getContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                setRecyclerView();
+            } else
+                Toast.makeText(getContext(), "Deleted, Note", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onCartItemFavoriteClicked(CartAdapter.CartViewHolder viewHolder, int position, ProductEntry productEntry) {
+            productDBHelper.deleteProduct(mCartList.get(position).getId());
+            favoritesDBHelper.newFavorite(mCartList.get(position));
+            setRecyclerView();
+            onFragmentRefreshListener.onFragmentRefreshed(1);
+        }
+    };
 }

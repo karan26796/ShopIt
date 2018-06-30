@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.model.ProductColors;
+import com.google.codelabs.mdc.java.shrine.utils.TextDrawable;
 
 import java.util.ArrayList;
 
@@ -13,7 +14,8 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorsViewHolder> {
-    ArrayList<ProductColors> mList;
+    private ArrayList<ProductColors> mList;
+    private boolean isSelected = false;
 
     @Override
     public ColorsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -28,7 +30,9 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorsView
 
     @Override
     public void onBindViewHolder(ColorsViewHolder holder, int position) {
-        holder.color.setBackgroundColor(mList.get(position).getColor());
+        TextDrawable textDrawable = TextDrawable.builder()
+                .buildRound("", mList.get(position).getColor());
+        holder.color.setImageDrawable(textDrawable);
     }
 
     @Override
@@ -36,12 +40,29 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ColorsView
         return mList.size();
     }
 
-    public class ColorsViewHolder extends RecyclerView.ViewHolder {
-        AppCompatImageView color;
+    public class ColorsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        AppCompatImageView selectedColor, color;
 
         public ColorsViewHolder(View itemView) {
             super(itemView);
             color = itemView.findViewById(R.id.image_color);
+            selectedColor = itemView.findViewById(R.id.image_selection);
+            color.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            if (!mList.get(getAdapterPosition()).isSelected()
+                    && !isSelected) {
+                selectedColor.setVisibility(View.VISIBLE);
+                mList.get(getAdapterPosition()).setSelected(true);
+                isSelected = true;
+            } else if (mList.get(getAdapterPosition()).isSelected()
+                    && isSelected) {
+                selectedColor.setVisibility(View.GONE);
+                mList.get(getAdapterPosition()).setSelected(false);
+                isSelected = false;
+            }
         }
     }
 }

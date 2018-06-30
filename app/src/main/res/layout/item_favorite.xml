@@ -4,24 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="8"
+    android:layout_weight="9"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="horizontal"
     android:padding="@dimen/padding_small"
     tools:ignore="RtlSymmetry">
-
-    <ImageButton
-        android:id="@+id/image_button_delete"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_margin="@dimen/margin_smaller"
-        android:layout_weight="1"
-        android:background="?selectableItemBackgroundBorderless"
-        android:padding="5dp"
-        app:srcCompat="@drawable/ic_delete"
-        tools:ignore="ContentDescription" />
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -76,6 +65,48 @@
             android:paddingBottom="@dimen/padding_smallest"
             android:paddingStart="@dimen/padding_smallest"
             android:textSize="16sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/margin_small"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <ImageButton
+                android:id="@+id/image_button_delete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smaller"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_delete"
+                tools:ignore="ContentDescription" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center_vertical"
+                android:background="?android:attr/listDivider" />
+
+            <ImageButton
+                android:id="@+id/image_button_cart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_smaller"
+                android:layout_weight="1"
+                android:background="?selectableItemBackgroundBorderless"
+                android:padding="5dp"
+                app:srcCompat="@drawable/ic_cart"
+                tools:ignore="ContentDescription" />
+        </LinearLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </LinearLayout>

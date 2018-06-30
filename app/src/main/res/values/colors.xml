@@ -311,6 +311,7 @@
     <color name="head_light">#f2212121</color>
     <color name="detail_light">#a0212121</color>
     <color name="subhead_light">#c8212121</color>
+    <color name="black_alpha">#9a000000</color>
 
     <color name="head_dark">#f2f2f2f2</color>
     <color name="detail_dark">#a0f2f2f2</color>

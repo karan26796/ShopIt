@@ -8,7 +8,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?colorAccent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/cartToolbar"
@@ -22,20 +23,12 @@
             style="@style/Widget.MaterialComponents.TabLayout.Colored"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="center"
-            app:tabMode="scrollable"
-            app:tabTextColor="@color/textColorPrimary">
+            android:layout_gravity="center_horizontal"
+            android:layout_marginEnd="50dp"
+            android:layout_marginStart="50dp"
+            app:tabMode="fixed"
+            app:tabTextColor="@color/textColorPrimary" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cart" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/favorites" />
-        </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager.widget.ViewPager

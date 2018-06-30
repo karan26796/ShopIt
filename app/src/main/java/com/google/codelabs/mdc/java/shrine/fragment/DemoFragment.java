@@ -9,7 +9,6 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.Toast;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.button.MaterialButton;
@@ -33,11 +32,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class DemoFragment extends Fragment
-        implements RecyclerViewAdapter.onClickListener, View.OnClickListener {
+        implements RecyclerViewAdapter.onClickListener, View.OnClickListener,
+        BottomSheetDialog.BottomSheetListener {
 
     private MaterialButton myAccBtn;
     private RecyclerView recyclerView;
     private ProductDBHelper productDBHelper;
+    boolean isBottomSheetOpen = false;
+    private BottomSheetDialogFragment fragment;
 
     public static DemoFragment newInstance() {
         Bundle args = new Bundle();
@@ -51,6 +53,7 @@ public class DemoFragment extends Fragment
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         productDBHelper = new ProductDBHelper(getContext());
+        fragment = new BottomSheetDialog(this);
     }
 
     private void setUpToolbar(View view) {
@@ -107,7 +110,6 @@ public class DemoFragment extends Fragment
 
     @Override
     public void onOptionsClicked(int position, View view, Bundle bundle) {
-        BottomSheetDialogFragment fragment = new BottomSheetDialog();
         fragment.show(getActivity().getSupportFragmentManager(), "ex");
         fragment.setArguments(bundle);
     }
@@ -121,5 +123,12 @@ public class DemoFragment extends Fragment
     @Override
     public void onClick(View view) {
         startActivity(new Intent(getContext(), DummyActivity.class));
+    }
+
+    @Override
+    public void onButtonClicked() {
+        if (fragment.isVisible()) {
+            fragment.dismiss();
+        }
     }
 }

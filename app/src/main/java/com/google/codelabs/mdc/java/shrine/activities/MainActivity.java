@@ -6,8 +6,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.google.codelabs.mdc.java.shrine.fragment.DemoFragment;
 import com.google.codelabs.mdc.java.shrine.R;
+import com.google.codelabs.mdc.java.shrine.fragment.DemoFragment;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, new DemoFragment())
+                    .add(R.id.container, DemoFragment.newInstance())
                     .commit();
         }
-
     }
 
     @Override

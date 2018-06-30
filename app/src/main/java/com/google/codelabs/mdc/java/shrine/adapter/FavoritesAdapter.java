@@ -38,7 +38,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
         void onFavoriteItemDeleteClicked(FavoritesViewHolder viewHolder, int position);
 
-        void onFavoriteItemLongClicked(FavoritesViewHolder viewHolder, int position);
+        void onFavoriteCartItemClicked(FavoritesViewHolder viewHolder, int position);
     }
 
     @Override
@@ -74,17 +74,17 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         return mList.size();
     }
 
-    public class FavoritesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-            , View.OnLongClickListener {
+    public class FavoritesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mCartImage;
         TextView mCartPrice;
         TextView mCartTitle;
         ProgressBar mCartProgress;
-        ImageButton btnDelete;
+        ImageButton btnDelete, btnCart;
 
         public FavoritesViewHolder(View itemView) {
             super(itemView);
             btnDelete = itemView.findViewById(R.id.image_button_delete);
+            btnCart = itemView.findViewById(R.id.image_button_cart);
 
             mCartImage = itemView.findViewById(R.id.image_favorite);
             mCartTitle = itemView.findViewById(R.id.text_favorite_title);
@@ -93,7 +93,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
             itemView.setOnClickListener(this);
             btnDelete.setOnClickListener(this);
-            itemView.setOnLongClickListener(this);
+            btnCart.setOnClickListener(this);
         }
 
         @Override
@@ -105,12 +105,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             }
             if (v == btnDelete)
                 mClickListener.onFavoriteItemDeleteClicked(this, getAdapterPosition());
-        }
-
-        @Override
-        public boolean onLongClick(View v) {
-            mClickListener.onFavoriteItemLongClicked(this, getAdapterPosition());
-            return false;
+            if (v == btnCart)
+                mClickListener.onFavoriteCartItemClicked(this, getAdapterPosition());
         }
 
     }

@@ -1,5 +1,6 @@
 package com.google.codelabs.mdc.java.shrine;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class BottomSheetDialog extends BottomSheetDialogFragment
         implements View.OnClickListener, OptionsAdapter.optionClickListener {
 
-    //private BottomSheetListener mListener;
+    private BottomSheetListener mListener;
     RecyclerView recyclerView;
     private ProductEntry productEntry;
     private ProductDBHelper productDBHelper;
-    FavoritesDBHelper favoritesDBHelper;
+    private FavoritesDBHelper favoritesDBHelper;
+
+    public BottomSheetDialog(BottomSheetListener mListener) {
+        this.mListener = mListener;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -74,20 +79,22 @@ public class BottomSheetDialog extends BottomSheetDialogFragment
                 Toast.makeText(getContext(), "Ntn", Toast.LENGTH_SHORT).show();
                 break;
         }
+        mListener.onButtonClicked();
     }
 
-    /*public interface BottomSheetListener {
-        void onButtonClicked(String text);
+    public interface BottomSheetListener {
+        void onButtonClicked();
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mListener = (BottomSheetListener) context;
+            mListener = (BottomSheetListener) this;
         } catch (ClassCastException e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
     private void setRecyclerView() {
         ArrayList<Options> optionsArrayList = new ArrayList<>();

@@ -1,7 +1,6 @@
 package com.google.codelabs.mdc.java.shrine.activities;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -104,10 +103,19 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
     public void setRecyclerColor() {
         recyclerColor.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mList = new ArrayList<>();
+
+        int[] colors = new int[8];
+        colors[0] = android.graphics.Color.parseColor("#ef5350");
+        colors[1] = android.graphics.Color.parseColor("#ab47bc");
+        colors[2] = android.graphics.Color.parseColor("#66bb6a");
+        colors[3] = android.graphics.Color.parseColor("#42a5f5");
+        colors[4] = android.graphics.Color.parseColor("#ec407a");
+        colors[5] = android.graphics.Color.parseColor("#ffa726");
+        colors[6] = android.graphics.Color.parseColor("#26a69a");
+        colors[7] = android.graphics.Color.parseColor("#bdbdbd");
+
         for (int i = 0; i < 8; i++) {
-            if (i % 2 == 0)
-                mList.add(new ProductColors(Color.GRAY));
-            else mList.add(new ProductColors(Color.BLUE));
+            mList.add(new ProductColors(colors[i], false));
         }
         recyclerColor.setAdapter(new ColorsAdapter(mList));
     }
