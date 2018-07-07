@@ -92,7 +92,7 @@ public class BottomSheetDialog extends BottomSheetDialogFragment
         try {
             mListener = (BottomSheetListener) this;
         } catch (ClassCastException e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();*/
         }
     }
 

@@ -14,7 +14,9 @@ import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.activities.DetailActivity;
 import com.google.codelabs.mdc.java.shrine.adapter.FavoritesAdapter;
 import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.utils.Divider;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -23,7 +25,6 @@ public class FavoritesFragment extends CartBaseFragment implements SwipeRefreshL
     private RecyclerView recyclerFavorites;
     private FavoritesAdapter mFavoritesAdapter;
     private SwipeRefreshLayout refreshLayout;
-    private OnFragmentRefreshListener mListener;
 
     @Override
     public void onListUpdate() {
@@ -41,6 +42,7 @@ public class FavoritesFragment extends CartBaseFragment implements SwipeRefreshL
         recyclerFavorites = view.findViewById(R.id.favorites_recycler);
         refreshLayout = view.findViewById(R.id.swipeFavorites);
         recyclerFavorites.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerFavorites.addItemDecoration(new Divider(ContextCompat.getDrawable(getContext(), R.drawable.dividr)));
         setRecyclerView();
         refreshLayout.setOnRefreshListener(this);
         return view;

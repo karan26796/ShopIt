@@ -1,12 +1,14 @@
 package com.google.codelabs.mdc.java.shrine.activities;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.google.android.material.chip.ChipGroup;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.adapter.ColorsAdapter;
 import com.google.codelabs.mdc.java.shrine.adapter.ImageSliderAdapter;
@@ -17,23 +19,20 @@ import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 import java.util.ArrayList;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.ArgbEvaluator;
 import androidx.viewpager.widget.ViewPager;
 
-public class DetailActivity extends AppCompatActivity implements ImageSliderAdapter.onImageClick {
-    AppCompatImageView imageView;
+public class DetailActivity extends AppCompatActivity implements ImageSliderAdapter.onImageClick, View.OnClickListener {
     ArrayList<ProductColors> mList;
     RecyclerView recyclerColor;
     Bundle bundle;
     Toolbar toolbar;
-    ChipGroup chipGroup;
     TextView textView;
     ViewPager viewPager;
     ImageSliderAdapter viewPagerAdapter;
-    ArrayList<String> images;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,6 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
         setContentView(R.layout.activity_detail);
         toolbar = findViewById(R.id.toolbar_detail);
         viewPager = findViewById(R.id.viewPagerSlider);
-
         viewPagerAdapter = new ImageSliderAdapter(ImageSliderAdapter.initProductEntryList(getResources()), this);
         viewPager.setAdapter(viewPagerAdapter);
         //imageView = findViewById(R.id.image_detail);
@@ -82,6 +80,7 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
                 //imageView.setImageResource(R.drawable.shr_search);
                 textView.setText("Not Available");
             }
+        textView.setOnClickListener(this);
     }
 
     @Override
@@ -118,5 +117,44 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
             mList.add(new ProductColors(colors[i], false));
         }
         recyclerColor.setAdapter(new ColorsAdapter(mList));
+    }
+
+    private void dummyMethod1(final TextView view) {
+        ValueAnimator animator = new ValueAnimator();
+        int count = 4;
+        animator.setObjectValues(0, count);
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+                view.setText(String.valueOf(animation.getAnimatedValue()));
+            }
+        });
+        animator.setEvaluator(new TypeEvaluator<Integer>() {
+            public Integer evaluate(float fraction, Integer startValue, Integer endValue) {
+                return Math.round(startValue + (endValue - startValue) * fraction);
+            }
+        });
+        animator.setDuration(1000);
+        animator.start();
+    }
+
+    private void dummyMethod(final TextView textView) {
+        int colorFrom = Color.BLACK;
+        int colorTo = getResources().getColor(R.color.md_blue_500);
+        ValueAnimator colorAnimation = ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo);
+        colorAnimation.setDuration(250); // milliseconds
+        colorAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+            @Override
+            public void onAnimationUpdate(ValueAnimator animator) {
+                textView.setTextColor((int) animator.getAnimatedValue());
+            }
+
+        });
+        colorAnimation.start();
+    }
+
+    @Override
+    public void onClick(View view) {
+        dummyMethod1(textView);
     }
 }

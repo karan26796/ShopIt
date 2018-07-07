@@ -52,35 +52,36 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(final CartViewHolder holder, int position) {
-        holder.mCartTitle.setText(mList.get(position).getTitle());
-        holder.mCartPrice.setText(mList.get(position).getPrice());
+
+        ProductEntry productEntry = mList.get(position);
+        holder.mCartTitle.setText(productEntry.getTitle());
+        holder.mCartPrice.setText(productEntry.getPrice());
         holder.mCartProgress.setVisibility(View.VISIBLE);
         List<String> size = new ArrayList<>();
+
         size.add("14");
         size.add("16");
         size.add("18");
         size.add("20");
-        try {
-            //size = mList.get(position).getColor();
-            Toast.makeText(holder.itemView.getContext(), size.size(), Toast.LENGTH_SHORT).show();
 
-        } catch (Exception e) {
-            Toast.makeText(holder.itemView.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-        }
-        ArrayAdapter<String>
-                colorAdapter = new ArrayAdapter<>
-                (holder.itemView.getContext(), android.R.layout.simple_spinner_item, size);
-        colorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        holder.spinnerColor.setAdapter(colorAdapter);
+        List<String> colors = new ArrayList<>(productEntry
+                .getColor());
+
+        Toast.makeText(holder.itemView.getContext(), productEntry.getTitle(), Toast.LENGTH_SHORT).show();
+        holder.spinnerColor.setAdapter(new ColorSpinnerAdapter(
+                holder.itemView.getContext(), android.R.layout.simple_spinner_item, colors));
+
+        //Toast.makeText(holder.itemView.getContext(), colors.size(), Toast.LENGTH_SHORT).show();
 
         ArrayAdapter<String>
                 sizeAdapter = new ArrayAdapter<>
                 (holder.itemView.getContext(), android.R.layout.simple_spinner_item, size);
+
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinnerQty.setAdapter(sizeAdapter);
 
         Picasso.get()
-                .load(mList.get(position).getUrl())
+                .load(productEntry.getUrl())
                 .into(holder.mCartImage, new Callback() {
                     @Override
                     public void onSuccess() {

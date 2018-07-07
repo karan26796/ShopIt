@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +25,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_TITLE = "text";
     private static final String COLUMN_PRICE = "price";
     private static final String COLUMN_IMAGE = "image";
+    private static final String COLUMN_COLOR = "colors";
 
     public ProductDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,6 +37,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_TITLE + " TEXT NOT NULL, " +
                 COLUMN_PRICE + " TEXT NOT NULL," +
+                COLUMN_COLOR + " TEXT NOT NULL," +
                 COLUMN_IMAGE + " TEXT NOT NULL);"
         );
     }
@@ -48,9 +51,15 @@ public class ProductDBHelper extends SQLiteOpenHelper {
     public boolean newProduct(ProductEntry productEntry) {
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
+        String color = null;
         values.put(COLUMN_TITLE, productEntry.getTitle());
         values.put(COLUMN_PRICE, productEntry.getPrice());
         values.put(COLUMN_IMAGE, productEntry.getUrl());
+        color = productEntry.getColor().get(0) + "," +
+                productEntry.getColor().get(1) + "," +
+                productEntry.getColor().get(2);
+
+        values.put(COLUMN_COLOR, color.toString());
 
         long result = database.insert(TABLE_NAME, null, values);
         if (result == -1)
@@ -74,6 +83,7 @@ public class ProductDBHelper extends SQLiteOpenHelper {
                 productEntry.setTitle(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)));
                 productEntry.setPrice(cursor.getString(cursor.getColumnIndex(COLUMN_PRICE)));
                 productEntry.setUrl(cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE)));
+                productEntry.setColor(Arrays.asList(cursor.getString(cursor.getColumnIndex(COLUMN_COLOR)).split(",")));
                 productEntryList.add(productEntry);
             } while (cursor.moveToNext());
         }

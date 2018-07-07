@@ -9,15 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.codelabs.mdc.java.shrine.OnFragmentRefreshListener;
 import com.google.codelabs.mdc.java.shrine.R;
 import com.google.codelabs.mdc.java.shrine.activities.DetailActivity;
 import com.google.codelabs.mdc.java.shrine.adapter.CartAdapter;
 import com.google.codelabs.mdc.java.shrine.model.ProductEntry;
+import com.google.codelabs.mdc.java.shrine.utils.Divider;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -44,7 +44,7 @@ public class CartFragment extends CartBaseFragment implements SwipeRefreshLayout
         textTotal = view.findViewById(R.id.text_total);
         recyclerView = view.findViewById(R.id.recycler_cart);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        recyclerView.addItemDecoration(new Divider(ContextCompat.getDrawable(getContext(), R.drawable.dividr)));
         setRecyclerView();
         refreshLayout.setOnRefreshListener(this);
         return view;
