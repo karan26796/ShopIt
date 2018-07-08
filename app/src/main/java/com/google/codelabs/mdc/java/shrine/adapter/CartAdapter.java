@@ -45,7 +45,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public CartViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cart,
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.test,
                 parent, false);
         return new CartViewHolder(itemView);
     }
@@ -57,27 +57,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.mCartTitle.setText(productEntry.getTitle());
         holder.mCartPrice.setText(productEntry.getPrice());
         holder.mCartProgress.setVisibility(View.VISIBLE);
-        List<String> size = new ArrayList<>();
-
-        size.add("14");
-        size.add("16");
-        size.add("18");
-        size.add("20");
 
         List<String> colors = new ArrayList<>(productEntry
                 .getColor());
-
-        Toast.makeText(holder.itemView.getContext(), productEntry.getTitle(), Toast.LENGTH_SHORT).show();
-        holder.spinnerColor.setAdapter(new ColorSpinnerAdapter(
-                holder.itemView.getContext(), android.R.layout.simple_spinner_item, colors));
-
-        //Toast.makeText(holder.itemView.getContext(), colors.size(), Toast.LENGTH_SHORT).show();
+        List<String> sizes = new ArrayList<>(productEntry
+                .getSize());
 
         ArrayAdapter<String>
                 sizeAdapter = new ArrayAdapter<>
-                (holder.itemView.getContext(), android.R.layout.simple_spinner_item, size);
+                (holder.itemView.getContext(), android.R.layout.simple_spinner_item, sizes);
 
         sizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        holder.spinnerColor.setAdapter(new ColorSpinnerAdapter(
+                holder.itemView.getContext(), android.R.layout.simple_spinner_item, colors));
         holder.spinnerQty.setAdapter(sizeAdapter);
 
         Picasso.get()

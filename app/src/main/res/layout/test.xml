@@ -69,32 +69,39 @@
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinner_qty"
-        android:layout_width="98dp"
+        style="@style/spinnerStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/barrier2"
         app:layout_constraintEnd_toStartOf="@+id/spinner_color"
-        app:layout_constraintStart_toEndOf="@+id/image_cart"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
         app:layout_constraintTop_toTopOf="@+id/barrier4" />
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/spinner_color"
-        android:layout_width="99dp"
+        style="@style/spinnerStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/barrier2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/spinner_qty"
         app:layout_constraintTop_toTopOf="@+id/barrier4" />
 
     <TextView
         android:id="@+id/text_cart_price"
         style="@style/TextViewSubHead"
         android:layout_width="0dp"
-        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:paddingBottom="@dimen/padding_smallest"
         android:paddingStart="@dimen/padding_smallest"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@id/image_cart"
+        app:layout_constraintStart_toStartOf="@+id/text_cart_title"
         app:layout_constraintTop_toBottomOf="@+id/spinner_qty" />
 
     <View
@@ -103,7 +110,6 @@
         android:layout_height="1dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="@dimen/margin_small"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_cart"
@@ -190,6 +196,13 @@
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="image_cart" />
+
+    <android.support.constraint.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="spinner_qty,spinner_color" />
 
     <android.support.constraint.Barrier
         android:id="@+id/barrier4"

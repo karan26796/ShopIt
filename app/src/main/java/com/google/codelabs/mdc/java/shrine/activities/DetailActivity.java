@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.google.codelabs.mdc.java.shrine.R;
@@ -102,7 +103,6 @@ public class DetailActivity extends AppCompatActivity implements ImageSliderAdap
     public void setRecyclerColor() {
         recyclerColor.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mList = new ArrayList<>();
-
         int[] colors = new int[8];
         colors[0] = android.graphics.Color.parseColor("#ef5350");
         colors[1] = android.graphics.Color.parseColor("#ab47bc");

@@ -2,6 +2,7 @@ package com.google.codelabs.mdc.java.shrine.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.codelabs.mdc.java.shrine.R;
+import com.google.codelabs.mdc.java.shrine.utils.TextDrawable;
 
 import java.util.List;
 
@@ -36,8 +38,11 @@ public class ColorSpinnerAdapter extends ArrayAdapter {
         tvLanguage.setTextColor(Color.rgb(75, 180, 225));
 
         ImageView img = convertView.findViewById(R.id.image_color_spinner);
+
+        Drawable drawable = TextDrawable.builder()
+                .buildRound("", Color.parseColor(colors.get(position)));
         if (!colors.get(position).equals(""))
-            img.setBackgroundColor(Color.parseColor(colors.get(position)));
+            img.setImageDrawable(drawable);
         else
             img.setBackgroundColor(Color.parseColor(colors.get(1)));
         return convertView;

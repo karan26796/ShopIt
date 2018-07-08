@@ -71,8 +71,8 @@ public class CartFragment extends CartBaseFragment implements SwipeRefreshLayout
                 cartAdapter = new CartAdapter(mCartList, cartItemClickListener);
 
                 recyclerView.setAdapter(cartAdapter);
-                textItems.setText("No. of items: " + mCartList.size());
-                textTotal.setText("Cart Total: " + "$" + total[0]);
+                textItems.setText(String.valueOf(mCartList.size()));
+                textTotal.setText("$" + total[0]);
                 if (mCartList.size() != 0) {
                     imageError.setVisibility(View.GONE);
                 } else {
